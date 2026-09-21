@@ -1,0 +1,51 @@
+# =========================
+# Python
+# =========================
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Large datasets
+# =========================
+attacks/nvdcve-2.0-2026.json
+attacks/attack-stix-data/
+data/temp_uploads/
+
+# =========================
+# Large model files
+# =========================
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+
+# =========================
+# Logs / temporary files
+# =========================
+*.log
+*.tmp
+*.cache

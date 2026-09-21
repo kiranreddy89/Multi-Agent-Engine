@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-09-21 19:57:50",
+  "model_engine": "gpt-oss",
+  "agents": [
+    "Planning Agent",
+    "Research Agent",
+    "Validation Agent",
+    "Execution Agent"
+  ],
+  "total_scenarios_tested": 5,
+  "accurate_classifications": 5,
+  "accuracy_rate_percent": 100.0,
+  "average_latency_seconds": 82.6,
+  "total_communication_messages_exchanged": 40,
+  "average_messages_per_incident": 8.0,
+  "scenarios": [
+    {
+      "scenario_id": "cisa_CVE-2025-39964",
+      "name": "CISA KEV: CVE-2025-39964 (Linux Kernel Race Condition Vulnerability)",
+      "source_dataset": "attacks/CISA.txt",
+      "expected_classification": "Vulnerability",
+      "actual_classification": "Zero-day / Vulnerability",
+      "severity": "High",
+      "confidence_score": 0.91,
+      "is_accurate": true,
+      "latency_seconds": 81.76,
+      "mitre_mappings": [
+        {
+          "tactic": "Initial Access",
+          "technique_id": "T1190",
+          "technique_name": "Exploit Public-Facing Application"
+        }
+      ],
+      "evidence_count": 1,
+      "containment_actions_count": 2,
+      "communication_logs_count": 8,
+      "incident_report_path": "results\\incident_reports\\cisa_cve_2025_39964_report.md"
+    },
+    {
+      "scenario_id": "mitre_sqli_t1190",
+      "name": "SQL Injection Public-Facing Exploit (T1190)",
+      "source_dataset": "attacks/attack-stix-data/enterprise-attack (T1190)",
+      "expected_classification": "SQL Injection",
+      "actual_classification": "SQL Injection",
+      "severity": "High",
+      "confidence_score": 0.95,
+      "is_accurate": true,
+      "latency_seconds": 81.56,
+      "mitre_mappings": [
+        {
+          "tactic": "Initial Access",
+          "technique_id": "T1190",
+          "technique_name": "Exploit Public-Facing Application"
+        }
+      ],
+      "evidence_count": 1,
+      "containment_actions_count": 3,
+      "communication_logs_count": 8,
+      "incident_report_path": "results\\incident_reports\\mitre_sqli_t1190_report.md"
+    },
+    {
+      "scenario_id": "mitre_ransomware_t1486",
+      "name": "WannaCry Ransomware Mass Encryption (T1486)",
+      "source_dataset": "attacks/attack-stix-data/enterprise-attack (T1486)",
+      "expected_classification": "Ransomware",
+      "actual_classification": "Ransomware",
+      "severity": "High",
+      "confidence_score": 0.98,
+      "is_accurate": true,
+      "latency_seconds": 86.3,
+      "mitre_mappings": [
+        {
+          "tactic": "Impact",
+          "technique_id": "T1486",
+          "technique_name": "Data Encrypted for Impact"
+        }
+      ],
+      "evidence_count": 1,
+      "containment_actions_count": 3,
+      "communication_logs_count": 8,
+      "incident_report_path": "results\\incident_reports\\mitre_ransomware_t1486_report.md"
+    },
+    {
+      "scenario_id": "mitre_bruteforce_t1110",
+      "name": "SSH Password Spray & Credential Access (T1110)",
+      "source_dataset": "attacks/attack-stix-data/enterprise-attack (T1110)",
+      "expected_classification": "Brute Force",
+      "actual_classification": "Brute Force",
+      "severity": "Medium",
+      "confidence_score": 0.92,
+      "is_accurate": true,
+      "latency_seconds": 81.27,
+      "mitre_mappings": [
+        {
+          "tactic": "Credential Access",
+          "technique_id": "T1110",
+          "technique_name": "Brute Force"
+        }
+      ],
+      "evidence_count": 4,
+      "containment_actions_count": 3,
+      "communication_logs_count": 8,
+      "incident_report_path": "results\\incident_reports\\mitre_bruteforce_t1110_report.md"
+    },
+    {
+      "scenario_id": "benign_traffic_baseline",
+      "name": "Legitimate Enterprise Traffic (Baseline Control)",
+      "source_dataset": "Internal SOC Telemetry",
+      "expected_classification": "Normal",
+      "actual_classification": "Normal",
+      "severity": "Info",
+      "confidence_score": 0.88,
+      "is_accurate": true,
+      "latency_seconds": 82.11,
+      "mitre_mappings": [],
+      "evidence_count": 0,
+      "containment_actions_count": 2,
+      "communication_logs_count": 8,
+      "incident_report_path": "results\\incident_reports\\benign_traffic_baseline_report.md"
+    }
+  ]
+}

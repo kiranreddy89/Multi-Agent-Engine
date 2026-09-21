@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinelAI - Local Multi-Agent Threat Analyst Workspace</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">🛡️</div>
+                <div>
+                    <h1 class="brand-text">SentinelAI</h1>
+                    <div class="brand-subtitle">Agent Workspace</div>
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="nav-item active" data-tab="dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                    </svg>
+                    Dashboard
+                </li>
+                <li class="nav-item" data-tab="analyst">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9 3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9V4.5M15 9h4.5M15 9 20.25 3.75M15 15v4.5M15 15h4.5M15 15l5.25 5.25" />
+                    </svg>
+                    Agent Analyst
+                </li>
+                <li class="nav-item" data-tab="ingest">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    Data Ingestion
+                </li>
+                <li class="nav-item" data-tab="benchmark">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                    </svg>
+                    Test Bench
+                </li>
+                <li class="nav-item" data-tab="docs">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                    </svg>
+                    Documentation
+                </li>
+            </ul>
+            
+            <div class="sidebar-footer">
+                <p>SentinelAI Workspace</p>
+                <p style="opacity: 0.6; margin-top: 2px;">Local GPT-OSS Engine</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div class="page-title">
+                    <h1 id="tab-title-text">Dashboard</h1>
+                    <p id="tab-subtitle-text">Overview of local threat analytics and multi-agent systems.</p>
+                </div>
+                
+                <div class="status-panel">
+                    <div class="status-badge">
+                        <span id="ollama-status-dot" class="status-dot orange"></span>
+                        <span>Ollama: <strong id="ollama-status-text">Connecting...</strong></span>
+                    </div>
+                    <div class="status-badge">
+                        <span id="llm-status-dot" class="status-dot orange"></span>
+                        <span>GPT-OSS: <strong id="llm-status-text">Checking...</strong></span>
+                    </div>
+                    <div class="status-badge">
+                        <span id="db-status-dot" class="status-dot orange"></span>
+                        <span>Knowledge KB: <strong id="db-count-text">0 docs</strong></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TAB 1: DASHBOARD -->
+            <section id="dashboard-tab" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="glass-card metric-card">
+                        <span class="metric-label">Knowledge Base Chunks</span>
+                        <span class="metric-value" id="dash-db-count">0</span>
+                        <span class="metric-desc">Authoritative chunks indexed in ChromaDB</span>
+                    </div>
+                    <div class="glass-card metric-card">
+                        <span class="metric-label">Ollama Models pulled</span>
+                        <span class="metric-value" id="dash-models-count">-</span>
+                        <span class="metric-desc">Available models on your local machine</span>
+                    </div>
+                    <div class="glass-card metric-card">
+                        <span class="metric-label">LLM Reasoning Engine</span>
+                        <span class="metric-value" style="font-size: 1.5rem; padding: 0.4rem 0;" id="dash-reasoning-engine">gpt-oss</span>
+                        <span class="metric-desc">Active target model for multi-agent tasks</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr; margin-top: 2rem;">
+                    <div class="glass-card">
+                        <h2 style="font-family: var(--font-title); margin-bottom: 1.25rem; font-size: 1.25rem;">Multi-Agent Pipeline Control</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.5;">
+                            This workspace coordinates 4 specialized agents to investigate cyber threats.
+                            The <strong>Planning Agent</strong> deconstructs queries and outlines investigation roadmaps, 
+                            the <strong>Research Agent</strong> performs RAG vector search and extracts IOCs, 
+                            the <strong>Validation Agent</strong> eliminates false positives and maps MITRE techniques, 
+                            and the <strong>Execution Agent</strong> formulates containment rules and compiles executive reports.
+                        </p>
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn" onclick="switchTab('analyst')">🛡️ Open Threat Analyst</button>
+                            <button class="btn btn-secondary" onclick="switchTab('ingest')">📂 Load Threat Intel</button>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <h2 style="font-family: var(--font-title); font-size: 1.25rem;">Quick Stats</h2>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">FastAPI Port</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.9rem;">8000</span>
+                        </div>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Ollama Host</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px;" id="dash-ollama-url">127.0.0.1:11434</span>
+                        </div>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary); font-size: 0.9rem;">Embedding Model</span>
+                            <span style="font-family: var(--font-mono); font-size: 0.9rem;" id="dash-embed-model">nomic-embed-text</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: AGENT ANALYST -->
+            <section id="analyst-tab" class="tab-content">
+                <div class="analysis-layout">
+                    <!-- Input Section -->
+                    <div class="glass-card">
+                        <div class="panel-header">
+                            <h2>Security Threat Input</h2>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Paste server logs, CVE IDs, or incident summaries</span>
+                        </div>
+                        
+                        <div class="textarea-container">
+                            <textarea id="log-input" placeholder="Example: 192.168.1.1 - - [27/Jul/2026] &quot;GET /admin HTTP/1.1&quot; 401 512"></textarea>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Or load a Preset Incident Log:</label>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="preset-buttons">
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="loadPreset('sqli')">SQL Injection</button>
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="loadPreset('xss')">XSS Injection</button>
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="loadPreset('bruteforce')">Brute Force</button>
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="loadPreset('ransomware')">Ransomware Indicators</button>
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="loadPreset('cve')">CVE-2024-3400 Explainer</button>
+                            </div>
+                        </div>
+
+                        <button id="run-btn" class="btn" style="width: 100%;" onclick="runAnalysis()">🛡️ Run Multi-Agent Analysis</button>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div style="display: flex; flex-direction: column; gap: 2rem;">
+                        <!-- Agent Logs -->
+                        <div class="glass-card">
+                            <div class="panel-header">
+                                <h2>Agent Protocol Activity Log</h2>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Real-time Phase 7 JSON transmissions</span>
+                            </div>
+                            <div class="agent-flow-container" id="agent-flow-logs">
+                                <div style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 2rem 0;">
+                                    Waiting to launch analysis...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Synthesized Report -->
+                        <div class="glass-card">
+                            <div class="panel-header">
+                                <h2>Synthesized Security Report</h2>
+                                <button class="btn btn-secondary" style="font-size: 0.75rem; padding: 0.4rem 0.8rem;" onclick="downloadReport()">💾 Export Report</button>
+                            </div>
+                            <div id="report-output" class="markdown-body" style="max-height: 500px; overflow-y: auto; padding-right: 0.5rem;">
+                                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; padding: 2rem 0;">
+                                    Final compiled security reports will appear here.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: DATA INGESTION -->
+            <section id="ingest-tab" class="tab-content">
+                <div class="ingest-grid">
+                    <!-- File Upload -->
+                    <div class="glass-card">
+                        <div class="panel-header">
+                            <h2>Ingest Document Chunks (RAG)</h2>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Add PDFs, TXT, MD, or DOCX guides</span>
+                        </div>
+                        
+                        <div class="dropzone-container" onclick="document.getElementById('file-upload').click()">
+                            <div class="dropzone-icon">📥</div>
+                            <div class="dropzone-text">
+                                <h3>Click to select file</h3>
+                                <p>Supports TXT, MD, PDF, DOCX, JSON up to 10MB</p>
+                            </div>
+                            <input type="file" id="file-upload" style="display: none;" onchange="uploadFile(this.files[0])">
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label for="chunk-size">Chunk Size (words)</label>
+                                <input type="number" id="chunk-size" class="form-control" value="500">
+                            </div>
+                            <div class="form-group">
+                                <label for="chunk-overlap">Chunk Overlap (words)</label>
+                                <input type="number" id="chunk-overlap" class="form-control" value="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Directory Indexer -->
+                    <div class="glass-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div>
+                            <div class="panel-header">
+                                <h2>Local Directory Crawler</h2>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">Crawl local directories to index massive sets</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="dir-path-input">Absolute Directory Path</label>
+                                <input type="text" id="dir-path-input" class="form-control" value="c:\sentinalai\data\raw_datasets" placeholder="e.g. C:\threat_intel">
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.4; margin-top: 0.5rem;">
+                                Placing threat directories (MITRE mappings, CVE details, OWASP PDFs) here allows SentinelAI to crawl them recursively and generate vectors automatically.
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                            <button class="btn" style="width: 100%;" onclick="crawlDirectory()">📂 Start Directory Crawl</button>
+                            <button class="btn btn-secondary" style="width: 100%; color: var(--danger); border-color: rgba(239, 68, 68, 0.2);" onclick="resetDatabase()">🗑️ Reset Vector Database</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: TEST BENCH -->
+            <section id="benchmark-tab" class="tab-content">
+                <div class="glass-card" style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h2 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 0.5rem;">Automated System Benchmarking</h2>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 700px;">
+                                Execute the 8 cybersecurity test cases representing Normal traffic, SQL injection, XSS payloads, Ransomware, brute force, DDoS flood, malicious SHA256 hashes, and unpatched CVE threats.
+                            </p>
+                        </div>
+                        <button class="btn" onclick="runBenchmark()">🧪 Run System Benchmark</button>
+                    </div>
+                </div>
+
+                <div class="bench-grid" style="display: none;" id="bench-results-section">
+                    <!-- Left: Results Table -->
+                    <div class="glass-card">
+                        <div class="panel-header">
+                            <h2>Benchmark Execution Log</h2>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Results by security scenario</span>
+                        </div>
+                        <div class="results-table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Scenario Name</th>
+                                        <th>Expected Class</th>
+                                        <th>Actual Class</th>
+                                        <th>Latency</th>
+                                        <th>Status</th>
+                                        <th>RAG</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bench-table-body">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Right: Summary Dashboard -->
+                    <div class="glass-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <h2 style="font-family: var(--font-title); font-size: 1.25rem;">Compiled Statistics</h2>
+                        
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary); font-weight: 500;">Overall Accuracy</span>
+                            <span class="badge badge-info" style="font-size: 1.25rem; padding: 0.4rem 0.8rem;" id="stat-accuracy">0%</span>
+                        </div>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary); font-weight: 500;">Average Latency</span>
+                            <span style="font-family: var(--font-mono); font-size: 1.25rem;" id="stat-latency">0s</span>
+                        </div>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary); font-weight: 500;">RAG Retrieval Hits</span>
+                            <span style="font-family: var(--font-mono); font-size: 1.25rem;" id="stat-rag-hits">0%</span>
+                        </div>
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary); font-weight: 500;">Hallucination Alerts</span>
+                            <span class="badge badge-success" style="font-size: 1rem;" id="stat-hallucinations">0</span>
+                        </div>
+                        
+                        <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+                            * Accuracy calculates whether the analyst mapped the correct threat classification tag. Hallucinations identify empty completions or model connection disconnects.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: DOCUMENTATION -->
+            <section id="docs-tab" class="tab-content">
+                <div class="glass-card" style="margin-bottom: 1.5rem;">
+                    <h2 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 1rem; color: var(--secondary);">Quick Reference Guide</h2>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem;">
+                        This dashboard provides access to local files and Ollama setup guides. Ensure you've followed these setup protocols:
+                    </p>
+                    <ul style="color: var(--text-secondary); padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; line-height: 1.6;">
+                        <li>Run <code>ollama pull gpt-oss</code> in your terminal.</li>
+                        <li>Run <code>ollama pull nomic-embed-text</code> for RAG embeddings.</li>
+                        <li>Verify Ollama status dot turns green in the upper-right corner.</li>
+                        <li>Drop PDFs or Markdown notes in <code>c:\sentinalai\data\raw_datasets</code> and run a scan to enrich the threat database.</li>
+                    </ul>
+                </div>
+                
+                <div class="glass-card">
+                    <h2 style="font-family: var(--font-title); font-size: 1.25rem; margin-bottom: 1rem;">Dataset Ingestion Links</h2>
+                    <table style="width: 100%; text-align: left;">
+                        <thead>
+                            <tr>
+                                <th>Dataset name</th>
+                                <th>Format</th>
+                                <th>Download URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CISA KEV Catalog</td>
+                                <td>JSON</td>
+                                <td><a href="https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json" target="_blank" style="color: var(--secondary);">Download JSON Feed</a></td>
+                            </tr>
+                            <tr>
+                                <td>MITRE ATT&CK STIX repo</td>
+                                <td>JSON</td>
+                                <td><a href="https://github.com/mitre-attack/attack-stix-data" target="_blank" style="color: var(--secondary);">Github Link</a></td>
+                            </tr>
+                            <tr>
+                                <td>OWASP Cheat Sheets</td>
+                                <td>Markdown</td>
+                                <td><a href="https://github.com/OWASP/CheatSheetSeries" target="_blank" style="color: var(--secondary);">Github Link</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Processing loader overlay -->
+    <div class="loader-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="loader-text" id="loader-title">Orchestrating Agents...</div>
+        <div class="loader-subtext" id="loader-subtitle">Running Intent Detection (Phase 4)</div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
