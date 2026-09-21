@@ -1,6 +1,6 @@
-# SentinelAI 🛡️
+# Multi-Agent Engine 🛡️
 
-**SentinelAI** is a self-hosted, multi-agent cybersecurity workspace designed to assist with security analysis, threat intelligence, and knowledge retrieval using locally running AI models.
+**Multi-Agent Engine** is a self-hosted, multi-agent cybersecurity workspace designed to assist with security analysis, threat intelligence, and knowledge retrieval using locally running AI models.
 
 The platform combines multiple specialized AI agents with **Retrieval-Augmented Generation (RAG)**, **ChromaDB**, and **Ollama** to provide a local cybersecurity analysis environment.
 
