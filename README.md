@@ -48,7 +48,7 @@ The platform combines multiple specialized AI agents with **Retrieval-Augmented 
 ## 🏗️ System Architecture
 
 ```text
-                         SentinelAI
+                         Multi-Agent Engine
                              │
                              ▼
                     ┌─────────────────┐
